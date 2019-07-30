@@ -1,0 +1,94 @@
+<div class="row">
+  <nav>
+    <div class="nav-wrapper">
+      <form>
+        <div class="input-field">
+          <input id="search" [(ngModel)]="params" type="search" required [ngModelOptions]="{standalone: true}">
+          <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+          <i class="material-icons">close</i>
+        </div>
+      </form>
+    </div>
+  </nav>
+</div>
+<p>{{params}}</p>
+<div *ngIf="params==null || params == ''">
+  <div class="col s12">
+    <ul class="tabs tabs-fixed-width tab-demo z-depth-1">
+      <li class="tab col s3"><a class="active" href="#test1">Ordenes de entrada</a></li>
+      <li class="tab col s3"><a href="#test2">Ordenes de envio</a></li>
+    </ul>
+  </div>
+  <div id="test1" class="section">
+    <br>
+    <div class="container">
+      <div class="row">
+        <button class="waves-effect waves-light btn blue right">Nuevo <i class="material-icons right">add</i> </button>
+        <h4 class="h4">Ordenes de entrada</h4>
+        <table class="responsive-table highlight">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Item Name</th>
+              <th>Item Price</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>Alvin</td>
+              <td>Eclair</td>
+              <td>$0.87</td>
+            </tr>
+            <tr>
+              <td>Alan</td>
+              <td>Jellybean</td>
+              <td>$3.76</td>
+            </tr>
+            <tr>
+              <td>Jonathan</td>
+              <td>Lollipop</td>
+              <td>$7.00</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div id="test2" class="section">
+    <br>
+    <div class="container">
+      <div class="row">
+        <button class="waves-effect waves-light btn blue right">Nuevo <i class="material-icons right">add</i> </button>
+        <h4 class="h4">Ordenes de envio</h4>
+        <table class="responsive-table highlight">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Item Name</th>
+              <th>Item Price</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>Alvin</td>
+              <td>Eclair</td>
+              <td>$0.87</td>
+            </tr>
+            <tr>
+              <td>Alan</td>
+              <td>Jellybean</td>
+              <td>$3.76</td>
+            </tr>
+            <tr>
+              <td>Jonathan</td>
+              <td>Lollipop</td>
+              <td>$7.00</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
