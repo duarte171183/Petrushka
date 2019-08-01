@@ -13,6 +13,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { Angular2TokenService } from 'angular2-token';
 import {AuthService} from "./services/auth.service";
 import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http'; 
+import { ProductsService } from './services/products.service';
 
 
 
@@ -27,12 +29,13 @@ import { HttpModule } from '@angular/http';
   imports: [
     BrowserModule,
     HttpModule,
+    HttpClientModule,
     RouterModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [AuthGuard, Angular2TokenService, AuthService ],
+  providers: [AuthGuard, Angular2TokenService, AuthService, ProductsService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
