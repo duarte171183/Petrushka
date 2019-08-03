@@ -5,16 +5,18 @@ import { LoginComponent } from './components/login/login.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ProductComponent } from './components/product/product.component';
 import { HomeComponent } from './components/home/home.component';
 import { AuthGuard } from './auth/auth.guard';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { Angular2TokenService } from 'angular2-token';
+import { Angular2TokenService, A2tUiModule  } from 'angular2-token';
 import {AuthService} from "./services/auth.service";
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http'; 
 import { ProductsService } from './services/products.service';
+import { FilterPipe } from './pipes/filter.pipe';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 
 
@@ -22,9 +24,11 @@ import { ProductsService } from './services/products.service';
   declarations: [
     AppComponent,
     LoginComponent,
-    DashboardComponent,
     HomeComponent,
+    ProductComponent,
     NavbarComponent,
+    FilterPipe,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,7 +37,8 @@ import { ProductsService } from './services/products.service';
     RouterModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    A2tUiModule
   ],
   providers: [AuthGuard, Angular2TokenService, AuthService, ProductsService ],
   bootstrap: [AppComponent]

@@ -9,7 +9,9 @@ import { environment } from '../environments/environment';
 })
 export class AppComponent {
   title = 'app';
+  userSignedIn$: any;
   constructor(private authToken: Angular2TokenService){
     this.authToken.init(environment.token_auth_config);
+    
   }
 }
