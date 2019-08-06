@@ -17,6 +17,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { ProductsService } from './services/products.service';
 import { FilterPipe } from './pipes/filter.pipe';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { OrderComponent } from './components/order/order.component';
+import { AddOrderComponent } from './components/order/add-order/add-order.component';
 
 
 
@@ -29,6 +31,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     NavbarComponent,
     FilterPipe,
     DashboardComponent,
+    OrderComponent,
+    AddOrderComponent,
   ],
   imports: [
     BrowserModule,
