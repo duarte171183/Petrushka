@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
     this.authService.logInUser(this.signInUser).subscribe(
       res => {
         if(res.status == 200){
-          this.router.navigate(["dashboard"]);
+          this.router.navigate(["products"]);
         }
       },
 

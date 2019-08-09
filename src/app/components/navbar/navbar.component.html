@@ -3,8 +3,10 @@
   <div class="nav-wrapper container">
     <a id="logo-container" [routerLink]="['']" class="brand-logo">Petrushka Boutique</a>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
-         <li *ngIf="(authService.userSignedIn$ | async)"><a [routerLink]="['/profile']">PROFILE</a></li>
-         <li *ngIf="(authService.userSignedIn$ | async)"><a (click)="logOut()">LOGOUT</a></li>
+        <li *ngIf="(authService.userSignedIn$ | async)"><a [routerLink]="['/orders']">ORDENES</a></li>
+        <li *ngIf="(authService.userSignedIn$ | async)"><a [routerLink]="['/products']">PRODUCTS</a></li>
+        <li *ngIf="(authService.userSignedIn$ | async)"><a [routerLink]="['/profile']">PROFILE</a></li>
+        <li *ngIf="(authService.userSignedIn$ | async)"><a (click)="logOut()">LOGOUT</a></li>
    </ul>
   </div>
 </nav>

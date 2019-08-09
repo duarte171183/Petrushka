@@ -1,73 +1,123 @@
 <div class="container">
+  <h3></h3>
+  <div class="col s12 right-align">
+    <button (click)="addOrder()" class="waves-effect waves-light btn green">Agregar orden<i
+        class="material-icons right">add</i>
+    </button>
+  </div>
+  <h3></h3>
+
   <form [formGroup]="angForm" novalidate>
-    <div class="input-field col s12">
-      <input id="style" class="form-control validate" required formControlName="style" type="text">
-      <label for="style">Style</label>
-      <div
-        *ngIf="angForm.controls['style'].invalid && (angForm.controls['style'].dirty || angForm.controls['style'].touched)"
-        class="alert alert-danger">
-        <div *ngIf="angForm.controls['style'].errors.required">
-          <span class="helper-text" style="color: red">Inserte el estilo</span>
-        </div>
-      </div>
-    </div>
-    <div class="input-field col s12">
-      <input id="mark" class="form-control validate" required formControlName="mark" type="text">
-      <label for="mark">mark</label>
-      <div
-        *ngIf="angForm.controls['mark'].invalid && (angForm.controls['mark'].dirty || angForm.controls['mark'].touched)"
-        class="alert alert-danger">
-        <div *ngIf="angForm.controls['mark'].errors.required">
-          <span class="helper-text" mark="color: red">Inserte el estilo</span>
-        </div>
-      </div>
-    </div>
-    <div class="input-field col s12">
-      <select formControlName="type" required>
-        <option value="" disabled selected>Selecciona una opcion</option>
-        <option *ngFor="let c of types" [ngValue]="c.id">{{c.type}} </option>
-      </select>
-      <label>Tipo</label>
-      <div *ngIf="angForm.controls['type'].errors">
-        <span class="helper-text" style="color: red">Seleccion uno</span>
-      </div>
-    </div>
-    <!--Items sections-->
-    <h3></h3>
-    <div class="section" formArrayName="product_types">
-      <h1>Items</h1>
-      <button (click)="addType()" class="waves-effect waves-light btn green ">Nuevo item<i
-          class="material-icons right">add</i> </button>
-      <div class="card col-12" *ngFor="let type of typesFormGroup.controls; let i = index;">
-        <div [formGroupName]="i" class="row">
-          <div class="input-field col s12">
-            <input id="size" formControlName="size" class="form-control validate" type="text">
-            <label for="size">Talla</label>
-            <div
-              *ngIf="getTypesFormGroup(i).controls['size'].touched && getTypesFormGroup(i).controls['size'].hasError('required')">
-              <span class="helper-text" style="color: red">Inserte la talla</span>
+    <div class="col s12" formArrayName="order_item">
+      <ul class="collapsible popout"
+        *ngFor="let order of angForm['controls'].order_item['controls']; let io = index;  let last = last;">
+        <li [formGroupName]="io">
+          <div class="card col s12 right-align">
+            <a (click)="removeOrder(io)" class="btn-floating halfway-fab waves-effect waves-light red"><i
+                class="material-icons">clear</i></a>
+          </div>
+          <div class="collapsible-header" (click)="openCloseCollapse(io)">
+            <i class="material-icons">local_grocery_store</i>
+            Orden {{io+1}}
+          </div>
+          <div class="collapsible-body">
+            <div class="input-field col s12">
+              <input id="dll" class="form-control validate" required formControlName="dll" type="number">
+              <label for="dll">Precio compra en dlls</label>
+              <div
+                *ngIf="getOrderFormGroup(io).controls['dll'].invalid && (getOrderFormGroup(io).controls['dll'].dirty  || getOrderFormGroup(io).controls['dll'].touched)">
+                <span class="helper-text" style="color: red">Inserte el precio de compra</span>
+              </div>
+            </div>
+            <div class="input-field col s12">
+              <input id="cambio_dia" class="form-control validate" required formControlName="cambio_dia" type="number">
+              <label for="cambio_dia">Cambio del dia</label>
+              <div
+                *ngIf="getOrderFormGroup(io).controls['cambio_dia'].invalid && (getOrderFormGroup(io).controls['cambio_dia'].dirty || getOrderFormGroup(io).controls['cambio_dia'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="getOrderFormGroup(io).controls['cambio_dia'].errors.required">
+                  <span class="helper-text" style="color: red">Introduce el cambio del dia</span>
+                </div>
+              </div>
+            </div>
+            <div class="input-field col s12">
+              <input id="style" class="form-control validate" required formControlName="style" type="text">
+              <label for="style">Style</label>
+              <div
+                *ngIf="getOrderFormGroup(io).controls['style'].invalid && (getOrderFormGroup(io).controls['style'].dirty || getOrderFormGroup(io).controls['style'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="getOrderFormGroup(io).controls['style'].errors.required">
+                  <span class="helper-text" style="color: red">Inserte el estilo</span>
+                </div>
+              </div>
+            </div>
+            <div class="input-field col s12">
+              <input id="mark" class="form-control validate" required formControlName="mark" type="text">
+              <label for="mark">mark</label>
+              <div
+                *ngIf="getOrderFormGroup(io).controls['mark'].invalid && (getOrderFormGroup(io).controls['mark'].dirty || getOrderFormGroup(io).controls['mark'].touched)">
+                <div *ngIf="getOrderFormGroup(io).controls['mark'].errors.required">
+                  <span class="helper-text" mark="color: red">Inserte el estilo</span>
+                </div>
+              </div>
+            </div>
+            <div class="input-field col s12">
+              <select formControlName="type" required>
+                <option value="" disabled selected>Selecciona una opcion</option>
+                <option *ngFor="let c of types" [ngValue]="c.id">{{c.type}} </option>
+              </select>
+              <label>Tipo</label>
+              <div *ngIf="getOrderFormGroup(io).controls['type'].errors">
+                <span class="helper-text" style="color: red">Seleccion uno</span>
+              </div>
+            </div>
+            <!--Products section-->
+            <h3></h3>
+            <div class="section" formArrayName="product_types">
+              <h3>Productos</h3>
+              <h3></h3>
+              <div class="col s12 right-align">
+                <button (click)="addType(io)" class="waves-effect waves-light btn green">Agregar producto<i
+                    class="material-icons right">add</i>
+                </button>
+              </div>
+              <h3></h3>
+              <div class="card hoverable"
+                *ngFor="let type of order['controls'].product_types['controls']; let p = index;">
+                <div [formGroupName]="p" class="row">
+                  <div class="input-field col s12">
+                    <input id="size" formControlName="size" class="form-control validate" type="text">
+                    <label for="size">Talla</label>
+                    <div
+                      *ngIf="getTypesFormGroup(io,p).controls['size'].touched && getTypesFormGroup(io,p).controls['size'].hasError('required')">
+                      <span class="helper-text" style="color: red">Inserte la talla</span>
+                    </div>
+                  </div>
+
+                  <div class="input-field col s12">
+                    <input id="quantity" formControlName="quantity" class="form-control validate" type="number">
+                    <label for="quantity">Cantidad</label>
+                    <div
+                      *ngIf="getTypesFormGroup(io,p).controls['quantity'].touched && getTypesFormGroup(io,p).controls['quantity'].hasError('required')">
+                      <span class="helper-text" style="color: red">Inserte la Cantidad</span>
+                    </div>
+                  </div>
+                  <div class="input-field col s12">
+                    <input id="color" formControlName="color" class="form-control validate" type="text">
+                    <label for="color">Color</label>
+                    <div
+                      *ngIf="getTypesFormGroup(io,p).controls['color'].touched && getTypesFormGroup(io,p).controls['color'].hasError('required')">
+                      <span class="helper-text" style="color: red">Inserte la Color</span>
+                    </div>
+                  </div>
+                </div>
+                <a (click)="removeType(io, p)" class="btn-floating halfway-fab waves-effect waves-light red"><i
+                    class="material-icons">close</i></a>
+              </div>
             </div>
           </div>
-          <div class="input-field col s12">
-            <input id="quantity" formControlName="quantity" class="form-control validate" type="text">
-            <label for="quantity">Cantidad</label>
-            <div
-            *ngIf="getTypesFormGroup(i).controls['quantity'].touched && getTypesFormGroup(i).controls['quantity'].hasError('required')">
-            <span class="helper-text" style="color: red">Inserte la Cantidad</span>
-          </div>
-          </div>
-          <div class="input-field col s12">
-            <input id="color" formControlName="color" class="form-control validate" type="text">
-            <label for="color">Color</label>
-            <div
-            *ngIf="getTypesFormGroup(i).controls['color'].touched && getTypesFormGroup(i).controls['color'].hasError('required')">
-            <span class="helper-text" style="color: red">Inserte la Color</span>
-          </div>
-          </div>
-        </div>
-        <a (click)="removeType(i)" class="btn-floating halfway-fab waves-effect waves-light red"><i
-            class="material-icons">close</i></a>
-      </div>
+        </li>
+      </ul>
     </div>
     <p>Form value: {{ angForm.value | json }}</p>
     <p>Form status: {{ angForm.status | json }}</p>

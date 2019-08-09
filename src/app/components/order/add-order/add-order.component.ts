@@ -11,12 +11,10 @@ export class AddOrderComponent implements OnInit {
   types: { "id": number; "type": string; "Ganacia": number; "Comision": number; }[];
   angForm: FormGroup;
   typeList:  FormArray;
+  formList: FormArray;
+  instancesCollapsible: any;
 
-  
-  get typesFormGroup() {
-    return this.angForm.get('product_types') as FormArray;
-  }
-
+ 
   constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
@@ -34,24 +32,37 @@ export class AddOrderComponent implements OnInit {
     ]
 
     this.createForm();
+    // this.angForm.valueChanges.subscribe(data => this.validateForm());
+    // this.validateForm();
   }
 
   
   ngAfterViewInit() {
     var select = document.querySelectorAll('select');
     var instances = M.FormSelect.init(select);
+    this.initCollapsable();
+  }
+
+  initCollapsable(){
+      var elems = document.querySelectorAll('.collapsible');
+      this.instancesCollapsible = M.Collapsible.init(elems);
   }
 
   createForm() {
     this.angForm = this.fb.group({
+       order_item: this.fb.array([this.createOrderItem()])
+    });
+  }
+
+  createOrderItem(): FormGroup {
+    return this.fb.group({
+       dll: ['', Validators.required ],
+       cambio_dia: ['', Validators.required],
        style: ['', Validators.required ],
        mark: ['', Validators.required ],
        type: ['', Validators.required],
        product_types: this.fb.array([this.createType()])
-
     });
-  
-    this.typeList = this.angForm.get('product_types') as FormArray;
   }
 
   
@@ -64,39 +75,39 @@ export class AddOrderComponent implements OnInit {
   
   }
 
-  changeType(event){
-   
+  addOrder(){
+    const control = <FormArray>this.angForm.controls['order_item'];
+    control.push(this.createOrderItem());
   }
 
-  get typeName() {
-    return this.angForm.get('product_types');
+  removeOrder(index){
+    const control = (<FormArray>this.angForm.controls['order_item']) as FormArray;
+    control.removeAt(index);
   }
 
-
-  addType(){
-    this.typeList.push(this.createType());
+  addType(index){
+    const control = (<FormArray>this.angForm.controls['order_item']).at(index).get('product_types') as FormArray;
+    control.push(this.createType());
   }
 
-  removeType(index){
-    if(index>0){
-      this.typeList = this.angForm.get('product_types') as FormArray;
-      this.typeList.removeAt(index);
-    }
-  }
- 
-  changedFieldType(index) {
-    let validators = null;
-    this.getTypesFormGroup(index).controls['value'].setValidators(
-      validators
-    );
-
-    this.getTypesFormGroup(index).controls['value'].updateValueAndValidity();
+  removeType(indexorder, indexproduct){
+    const control = (<FormArray>this.angForm.controls['order_item']).at(indexorder).get('product_types') as FormArray;
+    control.removeAt(indexproduct);
   }
 
-  getTypesFormGroup(index): FormGroup {
-    this.typeList = this.angForm.get('product_types') as FormArray;
-    const formGroup = this.typeList.controls[index] as FormGroup;
+  getOrderFormGroup(index){
+    const formGroup = (<FormArray>this.angForm.controls['order_item']).at(index) as FormArray;
     return formGroup;
+  }
+
+  getTypesFormGroup(indexorder, indexproduct){
+    const formGroup = (<FormArray>this.angForm.controls['order_item']).at(indexorder).get('product_types') as FormArray;
+    return formGroup.at(indexproduct);
+  }
+
+  openCloseCollapse(index){
+    var elems = document.querySelectorAll('.collapsible');
+    this.instancesCollapsible = M.Collapsible.init(elems);
   }
 
   submit() {
