@@ -85,7 +85,7 @@
               <div class="card hoverable"
                 *ngFor="let type of order['controls'].product_types['controls']; let p = index;">
                 <div [formGroupName]="p" class="row">
-                  <div class="input-field col s12">
+                  <div class="input-field col s3">
                     <input id="size" formControlName="size" class="form-control validate" type="text">
                     <label for="size">Talla</label>
                     <div
@@ -94,7 +94,7 @@
                     </div>
                   </div>
 
-                  <div class="input-field col s12">
+                  <div class="input-field col s3">
                     <input id="quantity" formControlName="quantity" class="form-control validate" type="number">
                     <label for="quantity">Cantidad</label>
                     <div
@@ -102,7 +102,7 @@
                       <span class="helper-text" style="color: red">Inserte la Cantidad</span>
                     </div>
                   </div>
-                  <div class="input-field col s12">
+                  <div class="input-field col s3">
                     <input id="color" formControlName="color" class="form-control validate" type="text">
                     <label for="color">Color</label>
                     <div
